@@ -1,0 +1,52 @@
+div[class^="draftJsToolbar__toolbar"] {
+  left: 50%;
+  display: inline-flex;
+  height: 56px;
+  transform: translate(-50%) scale(0);
+  position: absolute;
+  padding-top: 12px;
+  border: 1px solid #111;
+  /*background: #333;*/
+  min-width: 420px;
+  border-radius: 2px;
+  box-shadow: 0 1px 3px 0 rgba(220, 220, 220, 1);
+  z-index: 997;
+  box-sizing: border-box;
+}
+
+input[class^="draftJsMentionPlugin__input__"] {
+  padding-left: 12px;
+  margin-top: -12px;
+  height: 54px;
+  width: 100%;
+}
+
+input[class^="draftJsMentionPlugin__input__"]::placeholder {
+  font-family: 'VisbyCF-Regular', sans-serif;
+}
+
+div[class^="draftJsToolbar__toolbar"]:after,
+div[class^="draftJsToolbar__toolbar"]:before {
+  top: 100%;
+  left: 50%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+div[class^="draftJsToolbar__toolbar"]:after {
+  border-color: rgba(255, 255, 255, 0);
+  /*border-top-color: #333;*/
+  border-width: 4px;
+  margin-left: -4px;
+}
+
+div[class^="draftJsToolbar__toolbar"]:before {
+  border-color: rgba(221, 221, 221, 0);
+  /*border-top-color: #111;*/
+  border-width: 6px;
+  margin-left: -6px;
+}

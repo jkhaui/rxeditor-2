@@ -1,0 +1,183 @@
+::selection {
+  background-color: #BBD3FD;
+  color: #000C17;
+}
+
+span {
+  white-space: pre;
+}
+
+.public-DraftEditorPlaceholder-root {
+  font-family: 'VisbyCF-Bold', sans-serif;
+  font-size: 16px;
+  cursor: text;
+  color: #9197a3;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  position: absolute;
+  z-index: 99;
+}
+
+.DraftEditor-editorContainer {
+  cursor: default;
+}
+
+.DraftEditor-root {
+  margin-bottom: 24px;
+}
+
+.react-contextmenu-wrapper {
+  height: 100%;
+  padding-top: 12px;
+}
+
+.react-contextmenu {
+  font-family: 'VisbyCF-Bold', sans-serif;
+  background: #FFF;
+  user-select: none;
+  background-clip: padding-box;
+  font-weight: 600;
+  border-radius: 2px;
+  z-index: 999;
+  color: #202124;
+  margin: 2px 0 0;
+  width: 280px;
+  outline: none;
+  opacity: 0;
+  padding: 5px 0;
+  pointer-events: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.react-contextmenu.react-contextmenu--visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.react-contextmenu-item {
+  padding: 0 8px 0 8px;
+}
+
+.react-contextmenu-item.react-contextmenu-item--active,
+.react-contextmenu-item.react-contextmenu-item--selected {
+  text-decoration: none;
+}
+
+.react-contextmenu-item--divider {
+  border-bottom: 1px solid rgba(0, 0, 0, .15);
+  cursor: inherit;
+  margin-bottom: 3px;
+  padding: 2px 0;
+}
+
+.react-contextmenu-item--divider:hover {
+  background-color: transparent;
+  border-color: rgba(0, 0, 0, .15);
+}
+
+.react-contextmenu-item.react-contextmenu-submenu {
+  padding: 0;
+}
+
+.ant-menu-item {
+  transition: none;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  padding: 0 !important;
+}
+
+.ant-menu-item-selected {
+  color: #eceff1 !important;
+}
+
+.ant-menu-item-disabled {
+  cursor: default;
+}
+
+.ant-menu-item:active {
+  background: transparent !important;
+}
+
+.ant-menu-item:hover {
+  background-color: #cfd8dc;
+  color: #FFF !important;
+}
+
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+  background-color: transparent !important;
+}
+
+.ant-menu-item .ant-menu-item-active {
+  color: #eceff1 !important;
+}
+
+.ant-menu-vertical > .ant-menu-item {
+  height: 28px;
+  line-height: 28px;
+}
+
+.ant-tooltip-inner {
+  user-select: none;
+}
+
+.ant-card-body {
+  padding: 0 !important;
+}
+
+.ScrollbarsCustom-Wrapper {
+  right: 12px !important;
+}
+
+.ScrollbarsCustom-Scroller {
+  overflow: hidden !important;
+}
+
+.RxEditor-Scrollbar {
+  height: 100% !important;
+  width: 12px !important;
+  top: 0 !important;
+}
+
+.ScrollbarsCustom-ThumbY {
+  cursor: default !important;
+}
+
+.ScrollbarsCustom-ThumbY:hover {
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+@media (max-width: 961px) {
+  .TopPanel {
+    display: none;
+  }
+}
+
+@page {
+  size: A4;
+  margin: 0;
+}
+
+@media print {
+  .RxEditor-Toolbar {
+    display: none;
+  }
+
+  .RxEditor-SideDrawer {
+    display: none;
+  }
+
+  .RxEditor-ContextMenu {
+    display: none;
+  }
+
+  .RxEditor-Page {
+    margin: 0;
+    box-shadow: none;
+  }
+
+  .ant-tooltip-inner {
+    display: none;
+  }
+}
