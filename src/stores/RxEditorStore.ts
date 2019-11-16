@@ -130,9 +130,9 @@ class RxEditorStore {
   @observable currentDocTitle = '';
   @action setCurrentDocTitle = (title: string) => this.currentDocTitle = title;
 
-  @observable titleFocusState = false;
-  @action toggleTitleFocusState = () =>
-    this.titleFocusState = !this.titleFocusState;
+  @observable titleFocused = false;
+  @action toggleTitleFocus = () =>
+    this.titleFocused = !this.titleFocused;
 
   @observable isFocused = true;
   @action onBlur = () => this.isFocused = false;

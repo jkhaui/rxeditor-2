@@ -3,10 +3,18 @@ import { Button, Tooltip } from 'antd';
 
 import RxEditorContext from '../../stores/RxEditorContext';
 
-import { StyledThemedButton, StyledImage } from '../common/StyledComponents';
+import { StyledImage } from '../common/StyledComponents';
 import { undoRedo } from '../../actions';
 
-export const UndoRedoButton = ({ command, icon, shortcut }: any) => {
+import { RxEditorActionPayload } from '../../types/rxEditor';
+
+interface IProps {
+  command: RxEditorActionPayload;
+  icon: any;
+  shortcut: string;
+}
+
+export const UndoRedoButton = ({ command, icon, shortcut }: IProps) => {
   const editorStore = useContext(RxEditorContext);
   const { dispatch } = editorStore;
 

@@ -251,7 +251,7 @@ export const keyBindingFn = (
         toggleNewDocModalState,
         toggleSavedDocsModalState,
         toggleDownloadDocModalState,
-        setCaretVisibility,
+        // setCaretVisibility,
       } = editorStore;
 
       switch (key) {

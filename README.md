@@ -5,12 +5,15 @@ _This repo is a mirror of the original repo which is currently private._
 
 _RxEditor is currently a WIP proof-of-concept._
 
-Demo: http://reactive-docs.s3-website-ap-southeast-2.amazonaws.com/
+**Demo:** http://reactive-docs.s3-website-ap-southeast-2.amazonaws.com/
 
 RxEditor is an attempt at creating an open-source, web-based and lightweight
 alternative to word processors like Google Docs or Microsoft Word. It is
  built on Draft.js, ReactiveX (RxJS) and MobX.
- 
+ The other goal for this project is to demonstrate how functional programming
+  and a mostly declarative approach, alongside React hooks, can be used to
+   create an app that would traditionally be written in OOP-style.
+   
 The data-flow looks like this:
 User input -> Events piped through RxJS middleware -> MobX store holding
  editor state is updated -> MobX reactively triggers re-rendering of the editor.

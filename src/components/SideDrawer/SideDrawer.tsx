@@ -66,14 +66,17 @@ const StyledDrawer = styled(Drawer)`
 const StyledWrapper = styled.div`
   width: 240px;
 `;
+
 const StyledImage = styled.img`
   user-select: none;
 `;
+
 const StyledMenuIcon = styled(StyledImage)`
   cursor: pointer;
   padding-top: 4px;
   margin-left: 24px;
 `;
+
 const StyledItem = styled.div`
   cursor: pointer;
   font-family: 'VisbyCF-Bold', sans-serif;
@@ -87,8 +90,8 @@ export default () => {
   const {
     toggleSavedDocsModalState,
     toggleNewDocModalState,
-    titleFocusState,
-    toggleTitleFocusState,
+    // titleFocusState,
+    toggleTitleFocus,
     lockEditor,
     unlockEditor,
   } = editorStore;
@@ -109,8 +112,7 @@ export default () => {
             <TitleInput
               placeholder={'Document Title'}
               size={'large'}
-              titleFocusState={titleFocusState}
-              toggleTitleFocusState={toggleTitleFocusState}
+              toggleTitleFocus={toggleTitleFocus}
               maxLength={100}
               lockEditor={lockEditor}
               unlockEditor={unlockEditor}
@@ -177,7 +179,7 @@ export default () => {
                 <StyledWrapper>
                   <Row>
                     <Col span={8}>
-
+                      {/* Insert icon */}
                     </Col>
                     <Col span={16}>
                       <StyledItem>Export to Word</StyledItem>
@@ -186,11 +188,9 @@ export default () => {
                   <Divider />
                   <Row>
                     <Col span={8}>
-
+                      {/* Insert icon */}
                     </Col>
-                    <Col
-                      span={16}
-                    >
+                    <Col span={16}>
                       <StyledItem>Export to PDF</StyledItem>
                     </Col>
                   </Row>

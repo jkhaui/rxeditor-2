@@ -15,7 +15,7 @@ import {
   UNDO_SHORTCUT,
 } from '../RxEditor/utils/constants';
 
-import { StyledPopover, StyledContainer } from '../common/StyledComponents';
+import { StyledPopover } from '../common/StyledComponents';
 import RxEditorContext from '../../stores/RxEditorContext';
 import RightDrawer from '../RightDrawer/RightDrawer';
 import ComponentsContext from '../../stores/ComponentsContext';

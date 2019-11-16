@@ -56,7 +56,9 @@ export type EditorStatePayload = {
   payload: EditorState;
 }
 
-export type EditorStateStream = { next: (arg0: EditorState) => void; }
+export type EditorStateStream = {
+  next: (arg0: EditorState) => void;
+}
 
 export interface IAction {
   type: RxEditorActionType;
@@ -103,10 +105,6 @@ export interface IEntityStrategyContentBlock {
 
 export interface IEntityStrategyContentState {
   getEntity: (arg0: any) => { getType: () => void; };
-}
-
-export interface ITransformProps {
-  editorState$?: any;
 }
 
 export interface IContentBlock {

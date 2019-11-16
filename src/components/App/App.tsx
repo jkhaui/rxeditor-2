@@ -38,7 +38,6 @@ import visbyCf from '../../assets/fonts/VisbyCF-Regular.woff';
 import visbyCfBold from '../../assets/fonts/VisbyCF-Bold.woff';
 
 import { IThemeProps } from '../../types/ui';
-import gear from '../../assets/icons/gear.svg';
 
 const GlobalStyle = createGlobalStyle`
   @font-face {
@@ -82,8 +81,7 @@ export default () => {
 
   // https://github.com/microsoft/TypeScript/issues/33047
   const keydown$: Observable<any> = useObservable(
-    () => fromEvent(document, 'keydown',
-    ),
+    () => fromEvent(document, 'keydown'),
   );
 
   // Here we re-wire the behavior of certain keys/key combos so they don't
@@ -114,6 +112,7 @@ export default () => {
     }
   });
 
+  // Handle drag and drop events.
   const dragEnter$: Observable<any> = useObservable(
     () => defer(
       () => fromEvent(document, 'dragenter'),

@@ -10,6 +10,7 @@ import { RXEDITOR_FOOTNOTE_DIVIDER, RXEDITOR_PAGE } from './utils/constants';
 import { addNewPage } from '../../core/layout';
 
 import { ContentRect } from '../../types/rxEditor';
+import { BehaviorSubject } from 'rxjs';
 
 export const PageElement = styled.div`
   width: 816px;
@@ -74,7 +75,15 @@ const PageContainer = styled(PageElement)`
   background-color: #FFF;
 `;
 
-const RxEditorPage = forwardRef((props: any, ref: any) => {
+interface IProps {
+  children?: any;
+  editorState: EditorState;
+  editorState$: BehaviorSubject<EditorState>;
+  footnotesActive: boolean;
+  onFocus: () => void;
+}
+
+export default forwardRef((props: IProps, ref: React.Ref<any>) => {
   const [footnoteState, setFootnoteState] = useState(
     EditorState.createEmpty(),
   );
@@ -102,6 +111,7 @@ const RxEditorPage = forwardRef((props: any, ref: any) => {
             onResize={(contentRect: ContentRect): void => {
               const { bounds } = contentRect;
               const { height } = bounds;
+
               when(
                 () => height > 844,
                 () => addNewPage(
@@ -140,5 +150,3 @@ const RxEditorPage = forwardRef((props: any, ref: any) => {
     </PageContainer>
   );
 });
-
-export default RxEditorPage;

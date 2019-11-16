@@ -49,6 +49,13 @@ export const EM_DASH = '\u2014';
 
 export const RX_EDITOR_PLACEHOLDER = 'Start writing! 😄';
 
+export const keyMap = {
+  INSERT_FOOTNOTE: 'ctrl+/',
+  TOGGLE_DROPDOWN: 'ctrl+shift+f',
+  TOGGLE_OPTIONS_PANEL: 'ctrl+shift+p',
+  TOGGLE_KEYBOARD_SHORTCUTS: 'ctrl+k',
+};
+
 export const NUMBERS_REGEX = /\d+/;
 export const LOWER_CASE_REGEX = /[a-z]/;
 export const COPYRIGHT_REGISTERED_TRADEMARK_REGEX = /(\(([cr]))/;

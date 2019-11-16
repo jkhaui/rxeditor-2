@@ -15,6 +15,7 @@ import { HotKeys } from 'react-hotkeys';
 
 import {
   CREATE_FOOTNOTE_POINTER_ACTION,
+  keyMap,
   dragEvents,
   keyExceptions,
   RX_EDITOR_PLACEHOLDER,
@@ -69,10 +70,10 @@ export default (props: IProps) => {
   const {
     editorState,
     editorState$,
-    readOnlyState,
-    dispatch,
     onBlur,
     onFocus,
+    readOnlyState,
+    dispatch,
     lockEditor,
     unlockEditor,
   } = editorStore;
@@ -114,13 +115,6 @@ export default (props: IProps) => {
     // enforceEmDash,
     footnotes,
   } = props;
-
-  const keyMap = {
-    INSERT_FOOTNOTE: 'ctrl+/',
-    TOGGLE_DROPDOWN: 'ctrl+shift+f',
-    TOGGLE_OPTIONS_PANEL: 'ctrl+shift+p',
-    TOGGLE_KEYBOARD_SHORTCUTS: 'ctrl+k',
-  };
 
   const shortcutKeyHandlers = {
     INSERT_FOOTNOTE: insertFootnote,
@@ -300,6 +294,8 @@ export default (props: IProps) => {
         ref={editorRef}
         editorState={editorState.current}
         editorState$={editorState$}
+        onBlur={onBlur}
+        onFocus={onFocus}
         readOnly={readOnlyState.locked}
         plugins={plugins}
         placeholder={RX_EDITOR_PLACEHOLDER}
@@ -308,8 +304,6 @@ export default (props: IProps) => {
         blockRenderMap={blockRenderMap}
         blockStyleFn={blockStyleFn}
         decorators={customDecorators}
-        onBlur={onBlur}
-        onFocus={onFocus}
         blockRendererFn={lineBlockRenderer}
         keyBindingFn={keyBindingFn}
         handlePastedText={handlePastedText}

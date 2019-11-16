@@ -75,7 +75,11 @@ export const handleBeforeInput = (
         currentBlockText.match(NUMBERS_AT_START_OF_SENTENCE_REGEX)![1];
 
       if (numbersMatch) {
-        const numberToWord = nlp(numbersMatch).values().toText().all().out();
+        const numberToWord = nlp(numbersMatch)
+          .values()
+          .toText()
+          .all()
+          .out();
         const numberToWordCapitalised =
           numberToWord.charAt(0).toUpperCase() + numberToWord.substr(1);
 

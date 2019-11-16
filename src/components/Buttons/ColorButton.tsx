@@ -10,7 +10,15 @@ import {
 } from '../common/StyledComponents';
 import { toggleInlineStyle } from '../../actions';
 
-export const ColorButton = ({ command, shortcut, icon }: any) => {
+import { RxEditorActionPayload } from '../../types/rxEditor';
+
+interface IProps {
+  command: RxEditorActionPayload;
+  shortcut: string;
+  icon: any;
+}
+
+export const ColorButton = ({ command, shortcut, icon }: IProps) => {
   const [visible, setVisible] = useState(false);
 
   const editorStore = useContext(RxEditorContext);
@@ -21,7 +29,7 @@ export const ColorButton = ({ command, shortcut, icon }: any) => {
     highlightColor,
     setHighlightColor,
     dispatch,
-    inlineToolbarVisible,
+    // inlineToolbarVisible,
     setInlineToolbarVisible,
   } = editorStore;
 
