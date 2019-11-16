@@ -18,6 +18,11 @@ User input -> Events piped through RxJS middleware -> MobX store holding
 At the moment, the main feature to try out is pagination (press enter or type
  something until a page break is triggered.)
  
+Heads up: code/type definitions/UI are a little sloppy in places as the focus
+has been on experimenting with the core logic. Refactoring of the
+ presentational layer is needed, especially the button components. Context
+  logic can probably be refactored into a single hook.
+ 
 Setup the repo locally:
 
 > git clone https://github.com/jkhaui/rxeditor-2
