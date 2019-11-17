@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, /*useContext*/ } from 'react';
+import React, { useState, useEffect, useRef /*useContext*/ } from 'react';
 import styled from 'styled-components';
 import { getVisibleSelectionRect } from 'draft-js';
 import { useObserver } from 'mobx-react-lite';
@@ -6,6 +6,9 @@ import { useObserver } from 'mobx-react-lite';
 //import RxEditorContext from '../../../../../stores/RxEditorContext';
 
 const StyledInlineToolbar = styled.div`
+  visibility: hidden;
+  top: 0;
+  left: 0;
   padding-top: 8px;
   transition: transform 0.15s cubic-bezier(.3,1.2,.2,1);
   position: absolute;
@@ -95,7 +98,7 @@ export default (props) => {
       (!selection.isCollapsed() && selection.getHasFocus()) || content;
     const style = { ...toolbarPosition };
 
-    if (style && style.position) {
+    if (style.position) {
       const { left, top } = style.position;
       style.left = left;
       style.top = top;

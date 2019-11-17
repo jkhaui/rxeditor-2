@@ -94,18 +94,22 @@ export default (props: IProps) => {
     count,
   ), []);
   const toggleDropdown = useCallback(() => console.log('Open'), []);
-  const toggleOptionsPanel = useCallback(e => {
-    e.preventDefault();
-    e.stopPropagation();
-    toggleRightDrawerVisible();
-    readOnlyState.locked ? unlockEditor() : lockEditor();
-  }, []);
+  const toggleOptionsPanel = useCallback(
+    e => {
+      e.preventDefault();
+      e.stopPropagation();
+      toggleRightDrawerVisible();
+      readOnlyState.locked ? unlockEditor() : lockEditor();
+    }, [toggleRightDrawerVisible, readOnlyState.locked,
+      unlockEditor, lockEditor],
+  );
   const toggleKeyboardShortcuts = useCallback(e => {
     e.preventDefault();
     e.stopPropagation();
     toggleKeyboardShortcutsVisible();
     readOnlyState.locked ? unlockEditor() : lockEditor();
-  }, []);
+  }, [toggleKeyboardShortcutsVisible, readOnlyState.locked,
+    unlockEditor, lockEditor]);
 
   const editorRef = useRef<IRxEditor>(null);
   const innerWrapperRef = useRef<HTMLDivElement>(null);
@@ -180,7 +184,7 @@ export default (props: IProps) => {
       () => footnoteStore.count,
       () => setTimeout(editorRef.current!.focus(), 0),
     );
-  }, []);
+  }, [footnoteStore.count, onFocus]);
 
   useEffect(() => {
     // Wrap the current line width in an observable so MobX can react to
@@ -236,7 +240,7 @@ export default (props: IProps) => {
     return () => {
       subtreeObserver.disconnect();
     };
-  }, [lineWidth]);
+  }, [lineWidth, editorState, editorState$]);
 
   // Preventing the standard text dragging behaviour within the editor is
   // necessary, otherwise it will ruin the page layout.

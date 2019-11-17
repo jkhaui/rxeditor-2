@@ -2,7 +2,7 @@
 import React, {/* useEffect, useState*//* useEffect, useState */ } from 'react';
 // import { reaction, observable } from 'mobx';
 import { EditorBlock } from 'draft-js';
-import { handleLineBlock } from '../../core/layout';
+// import { handleLineBlock } from '../../core/layout';
 
 // import { handleLineBlock } from './core/layout';
 

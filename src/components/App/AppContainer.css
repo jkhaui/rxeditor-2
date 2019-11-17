@@ -139,6 +139,12 @@ span {
   top: 0 !important;
 }
 
+.ScrollbarsCustom-TrackY {
+  top: 0 !important;
+  height: 100% !important;
+  width: 12px !important;
+}
+
 .ScrollbarsCustom-ThumbY {
   cursor: default !important;
 }

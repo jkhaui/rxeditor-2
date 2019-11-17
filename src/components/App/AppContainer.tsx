@@ -55,7 +55,7 @@ export default () => {
           return <StyledContainer
             ref={elementRef}
             className={RXEDITOR_SCROLLBAR}
-            onContextMenu={(e: any) => e.preventDefault()}
+            onContextMenu={(e: Event) => e.preventDefault()}
             {...rest}
           />;
         },

@@ -37,8 +37,8 @@ import { getCaretCoordinates } from '../../utils/utils';
 import visbyCf from '../../assets/fonts/VisbyCF-Regular.woff';
 // @ts-ignore
 import visbyCfBold from '../../assets/fonts/VisbyCF-Bold.woff';
-// import caboLight from '../../extensions/themes/caboLight.json';
-// import chelevra from '../../extensions/themes/chelevra.json';
+import caboLight from '../../extensions/themes/caboLight.json';
+import chelevra from '../../extensions/themes/chelevra.json';
 
 import { IThemeProps } from '../../types/ui';
 
@@ -72,6 +72,11 @@ const AppWrapper = styled.div`
 `;
 
 export default () => {
+  const themes = [caboLight, chelevra];
+
+  const themeNames = themes.map(theme => theme.name);
+  console.log(themeNames);
+
   const themeStore = useContext(ThemeContext);
   const scrollbarContext = useContext(ScrollbarContext);
   const editorStore = useContext(RxEditorContext);
@@ -96,26 +101,35 @@ export default () => {
       getCaretCoordinates(window).isCaretOutsideViewport;
 
     if (isCaretOutsideViewport) {
-      scrollbarContext.parentScrollbar!.scrollTop += 270;
+      scrollbarContext.parentScrollbar!.scrollTop += 135;
     }
 
     // Contenteditable has weird bugs which cause the page layout to shift
     // and break when `PageUp` or `PageDown` are pressed, so we completely
     // disable these keys and rewrite their functionality.
     const scrollbar = document.querySelector('.ScrollbarsCustom-ThumbY');
+    const hasFocus = editorState.current.getSelection().getHasFocus();
+
     if (scrollbar && !scrollState.locked) {
+      if (key === 'ArrowUp' && !hasFocus) {
+        e.preventDefault();
+        e.stopPropagation();
+        scrollbarContext.parentScrollbar!.scrollTop -= 100;
+      }
       if (key === 'PageUp') {
         e.preventDefault();
         e.stopPropagation();
         scrollbarContext.parentScrollbar!.scrollTop -= 270;
       }
-      if (
-        key === 'PageDown' ||
-        (key === ' ' && editorState.current.getSelection().getHasFocus())
-      ) {
+      if (key === 'PageDown' || (key === ' ' && !hasFocus)) {
         e.preventDefault();
         e.stopPropagation();
         scrollbarContext.parentScrollbar!.scrollTop += 270;
+      }
+      if (key === 'ArrowDown' && !hasFocus) {
+        e.preventDefault();
+        e.stopPropagation();
+        scrollbarContext.parentScrollbar!.scrollTop += 100;
       }
     }
 
