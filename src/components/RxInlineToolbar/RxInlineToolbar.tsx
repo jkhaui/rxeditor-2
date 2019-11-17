@@ -37,7 +37,7 @@ const StyledButtonGroup = styled.div`
 
 export default ({ InlineToolbar, LinkButton }: any) =>
   <InlineToolbar>
-    {(externalProps: any) => (
+    {(externalProps: JSX.IntrinsicAttributes) =>
       <Fragment>
         <StyledButtonGroup>
           <Group>
@@ -79,6 +79,5 @@ export default ({ InlineToolbar, LinkButton }: any) =>
           />
           <LinkButton {...externalProps} />
         </StyledButtonGroup>
-      </Fragment>
-    )}
+      </Fragment>}
   </InlineToolbar>;

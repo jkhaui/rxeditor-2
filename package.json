@@ -16,7 +16,6 @@
     "antd": "^3.25.1",
     "apollo-boost": "^0.4.4",
     "compromise": "^11.14.3",
-    "downloadjs": "^1.4.7",
     "draft-js": "^0.11.2",
     "draft-js-linkify-plugin": "^2.0.2",
     "draft-js-plugins-editor": "^3.0.0",

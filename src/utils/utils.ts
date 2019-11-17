@@ -49,3 +49,35 @@ export const trace = (label: any) => (value: any) => {
   console.log(`${label}: ${value} `);
   return value;
 };
+
+export const getCaretCoordinates = (browserWindow: any) => {
+  const selection = browserWindow.getSelection();
+  let x = 0;
+  let y = 0;
+  let isCaretOutsideViewport = false;
+  let rect;
+  let rects;
+
+  if (selection && selection.rangeCount) {
+    const range = selection.getRangeAt(0);
+    const clonedRange = range.cloneRange();
+    clonedRange.collapse(true);
+    rects = clonedRange.getClientRects();
+
+    if (rects.length > 0) {
+      rect = rects[0];
+
+      if (rect.bottom > window.innerHeight) {
+        isCaretOutsideViewport = true;
+      }
+    }
+
+    if (rect) {
+      const { left, top } = rect;
+      x = left + 1;
+      y = top;
+    }
+  }
+
+  return { x, y, isCaretOutsideViewport };
+};

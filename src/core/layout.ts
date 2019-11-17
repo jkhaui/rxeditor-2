@@ -99,8 +99,7 @@ export const addNewPage = (
         ),
       );
     }
-  }
-  else {
+  } else {
     const blocksAsArray = contentState.getBlocksAsArray();
     const { length } = blocksAsArray;
     const lastBlockOfEachPageKeys: string[] = [];
@@ -244,8 +243,7 @@ export const handleLineBlock = (
         SPLIT_BLOCK_CHANGE_TYPE,
       ),
     );
-  }
-  else {
+  } else {
     // If we are *not* at the end of the document
     const nextLineKey = nextLine.getKey();
     const currentLineFocusOffset = currentLineText.length;
@@ -290,8 +288,7 @@ export const handleLineBlock = (
       focusKey: nextLineKey,
       focusOffset: focusOffset,
     });
-  }
-  else {
+  } else {
     // Checks if current caret offset is inside the last word of the line
     // but NOT at the very end of the line.
     if (
@@ -306,8 +303,7 @@ export const handleLineBlock = (
         focusKey: nextLineKey,
         focusOffset: nextLineFocusOffset,
       });
-    }
-    else {
+    } else {
       selectionToFocusOn = new SelectionState({
         anchorKey: currentLineKey,
         anchorOffset: currentFocusOffset,
@@ -321,35 +317,9 @@ export const handleLineBlock = (
   );
 };
 
-export const blockStyleFn = (contentBlock: IContentBlock) => {
+export const blockStyleFn = (contentBlock: IContentBlock): string | void => {
   const type = contentBlock.getType();
   if (type === UNSTYLED_BLOCK_TYPE || type === UNSTYLED_ALT_BLOCK_TYPE) {
     return RXEDITOR_PAGE_LINE;
   }
-};
-export const getCaretCoordinates = (browserWindow: any) => {
-  const selection = browserWindow.getSelection();
-  let x = 0;
-  let y = 0;
-  let rect;
-  let rects;
-
-  if (selection && selection.rangeCount) {
-    const range = selection.getRangeAt(0);
-    const clonedRange = range.cloneRange();
-    clonedRange.collapse(true);
-    rects = clonedRange.getClientRects();
-
-    if (rects.length > 0) {
-      rect = rects[0];
-    }
-
-    if (rect) {
-      const { left, top } = rect;
-      x = left + 1;
-      y = top;
-    }
-  }
-
-  return { x, y };
 };

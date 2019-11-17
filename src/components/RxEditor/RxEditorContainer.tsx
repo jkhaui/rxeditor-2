@@ -41,7 +41,7 @@ import {
   plugins,
 } from './utils/initPlugins';
 import { blockStyleFn, handleLineBlock } from '../../core/layout';
-import { customDecorators } from './utils/decorator';
+import { customDecorators } from './Entities/decorator';
 import { createEntity } from '../../actions';
 
 import RxEditor from './RxEditor';
@@ -108,7 +108,7 @@ export default (props: IProps) => {
   }, []);
 
   const editorRef = useRef<IRxEditor>(null);
-  const innerWrapperRef = useRef<any>(null);
+  const innerWrapperRef = useRef<HTMLDivElement>(null);
 
   const {
     // disableDoubleSpaces,
@@ -211,7 +211,8 @@ export default (props: IProps) => {
 
       const selectionState = editorState.current.getSelection();
       const startKey = selectionState.getStartKey();
-      const lineNode = editorNode.querySelector(`div[data-offset-key^="${startKey}-0-0"]`);
+      const lineNode =
+        editorNode.querySelector(`div[data-offset-key^="${startKey}-0-0"]`);
       const lineChildNodes = lineNode.firstChild.childNodes;
 
       if (!lineChildNodes) {
@@ -251,8 +252,7 @@ export default (props: IProps) => {
   );
   useSubscription(keydown$, (e: React.KeyboardEvent) => {
       const { key, ctrlKey, shiftKey } = e;
-      // @ts-ignore
-      const hasFocus = editorState.current.getSelection().hasFocus;
+      const hasFocus = editorState.current.getSelection().getHasFocus();
 
       if (hasFocus) {
         if (key === 'Tab' && !readOnlyState.locked) {

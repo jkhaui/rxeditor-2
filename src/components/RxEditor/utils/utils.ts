@@ -11,7 +11,7 @@ import { INSERT_CHARACTERS_CHANGE_TYPE } from './constants';
 export const selectAllText = (
   editorState: EditorState,
   editorState$: BehaviorSubject<EditorState>,
-) => {
+): void => {
   const { setCaretVisibility } = editorStore;
   setCaretVisibility('hidden');
 
@@ -89,7 +89,7 @@ export const getCharsPrecedingFocus = (
 /**
  * Returns the current word count of the editor.
  */
-export const getWordCount = (editorState: EditorState) => {
+export const getWordCount = (editorState: EditorState): number | void => {
   const plainText = editorState.getCurrentContent().getPlainText('');
   const regex = /(?:\r\n|\r|\n)/g;
   const cleanString = plainText.replace(regex, ' ').trim();
@@ -103,16 +103,14 @@ export const getWordCount = (editorState: EditorState) => {
  */
 export const copyToClipboard = (
   editorState: EditorState,
-) => {
+): void => {
   const selectionState = editorState.getSelection();
   const anchorKey = selectionState.getAnchorKey();
   const currentContent = editorState.getCurrentContent();
   const currentContentBlock = currentContent.getBlockForKey(anchorKey);
   const start = selectionState.getStartOffset();
   const end = selectionState.getEndOffset();
-  const selectedText = currentContentBlock
-    .getText()
-    .slice(start, end);
+  const selectedText = currentContentBlock.getText().slice(start, end);
   const tempTextArea = document.createElement('textarea');
   tempTextArea.value = selectedText;
   document.body.appendChild(tempTextArea);
@@ -130,7 +128,7 @@ export const currentBlockHasEntities = (
   contentState: any,
   currentBlock: any,
   entityType: string,
-) => {
+): boolean | void => {
   const entities: any[] = [];
   let selectedEntity: any = null;
 
@@ -160,7 +158,7 @@ export const currentBlockHasEntities = (
 export const forceSelection = (
   editorState: EditorState,
   editorState$: BehaviorSubject<EditorState>,
-) => {
+): void => {
   const selectionState = editorState.getSelection();
   const focusOffset = editorState.getSelection().getFocusOffset();
   const focusKey = selectionState.getFocusKey();
@@ -173,7 +171,7 @@ export const forceSelection = (
         anchorOffset: focusOffset,
         focusKey: focusKey,
         focusOffset: focusOffset,
-      })
-    )
-  )
+      }),
+    ),
+  );
 };

@@ -31,11 +31,14 @@ import RxEditorContainer from '../RxEditor';
 import { RXEDITOR_CONTEXTMENU } from '../RxEditor/utils/constants';
 import SideDrawer from '../SideDrawer/SideDrawer';
 import TopPanel from '../TopPanel/TopPanel';
+import { getCaretCoordinates } from '../../utils/utils';
 
 // @ts-ignore
 import visbyCf from '../../assets/fonts/VisbyCF-Regular.woff';
 // @ts-ignore
 import visbyCfBold from '../../assets/fonts/VisbyCF-Bold.woff';
+// import caboLight from '../../extensions/themes/caboLight.json';
+// import chelevra from '../../extensions/themes/chelevra.json';
 
 import { IThemeProps } from '../../types/ui';
 
@@ -56,28 +59,29 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const AppWrapper = styled.div`
-  color: ${(props: IThemeProps) => (
-  props.theme.active === CHELEVRA_THEME
+  color: ${({ theme }: IThemeProps) =>
+  theme.active === CHELEVRA_THEME
     ? '#F5F1F2'
-    : '#323332'
-)};
-  background: ${(props: IThemeProps) => (
-  props.theme.active === CHELEVRA_THEME
+    : '#323332'};
+  background: ${({ theme }: IThemeProps) =>
+  theme.active === CHELEVRA_THEME
     ? '#2B303B'
-    : '#DADADA'
-)};
+    : '#DADADA'};
   margin: 0;
   padding: 0;
 `;
 
 export default () => {
-  const themeContext = useContext(ThemeContext);
+  const themeStore = useContext(ThemeContext);
   const scrollbarContext = useContext(ScrollbarContext);
-  const editorContext = useContext(RxEditorContext);
+  const editorStore = useContext(RxEditorContext);
 
-  const { scrollState } = editorContext;
+  const {
+    scrollState,
+    editorState,
+  } = editorStore;
 
-  const appWrapperRef = useRef<any>(null);
+  const appWrapperRef = useRef<HTMLDivElement>(null);
 
   // https://github.com/microsoft/TypeScript/issues/33047
   const keydown$: Observable<any> = useObservable(
@@ -86,22 +90,36 @@ export default () => {
 
   // Here we re-wire the behavior of certain keys/key combos so they don't
   // interfere with custom keyboard shortcuts lower down the component tree.
-  useSubscription(keydown$, (e: React.KeyboardEvent<HTMLDocument>): void => {
+  useSubscription(keydown$, (e: React.KeyboardEvent<HTMLDocument>) => {
     const { key, ctrlKey, shiftKey } = e;
-    if (key === 'PageUp' || key === 'PageDown') {
-      e.preventDefault();
-      e.stopPropagation();
-      const scrollbar = document.querySelector('.ScrollbarsCustom-ThumbY');
-      if (scrollbar && !scrollState.locked) {
-        if (key === 'PageUp') {
-          scrollbarContext.parentScrollbar!.scrollTop -= 270;
-        }
-        if (key === 'PageDown') {
-          scrollbarContext.parentScrollbar!.scrollTop += 270;
-        }
+    const isCaretOutsideViewport =
+      getCaretCoordinates(window).isCaretOutsideViewport;
+
+    if (isCaretOutsideViewport) {
+      scrollbarContext.parentScrollbar!.scrollTop += 270;
+    }
+
+    // Contenteditable has weird bugs which cause the page layout to shift
+    // and break when `PageUp` or `PageDown` are pressed, so we completely
+    // disable these keys and rewrite their functionality.
+    const scrollbar = document.querySelector('.ScrollbarsCustom-ThumbY');
+    if (scrollbar && !scrollState.locked) {
+      if (key === 'PageUp') {
+        e.preventDefault();
+        e.stopPropagation();
+        scrollbarContext.parentScrollbar!.scrollTop -= 270;
+      }
+      if (
+        key === 'PageDown' ||
+        (key === ' ' && editorState.current.getSelection().getHasFocus())
+      ) {
+        e.preventDefault();
+        e.stopPropagation();
+        scrollbarContext.parentScrollbar!.scrollTop += 270;
       }
     }
 
+    // Default HotKeys shortcuts.
     if (ctrlKey) {
       if (key === 'k' || key === 'd' || key === 'o') {
         e.preventDefault();
@@ -117,7 +135,7 @@ export default () => {
     () => defer(
       () => fromEvent(document, 'dragenter'),
     ).pipe(
-      tap(() => appWrapperRef.current.style.opacity = .5),
+      tap(() => appWrapperRef.current!.style.opacity = '.5'),
     ),
   );
 
@@ -125,7 +143,7 @@ export default () => {
     () => defer(
       () => fromEvent(document, 'dragleave'),
     ).pipe(
-      tap(() => appWrapperRef.current.style.opacity = 1),
+      tap(() => appWrapperRef.current!.style.opacity = '1'),
     ),
   );
 
@@ -133,7 +151,7 @@ export default () => {
     () => defer(
       () => fromEvent(document, 'dragend'),
     ).pipe(
-      tap(() => appWrapperRef.current.style.opacity = 1),
+      tap(() => appWrapperRef.current!.style.opacity = '1'),
     ),
   );
 
@@ -141,7 +159,7 @@ export default () => {
     () => defer(
       () => fromEvent(document, 'dragover'),
     ).pipe(
-      tap((e: Event) => e.preventDefault()),
+      tap(e => e.preventDefault()),
     ),
   );
 
@@ -149,10 +167,10 @@ export default () => {
     () => defer(
       () => fromEvent(document, 'drop'),
     ).pipe(
-      tap((e: any) => {
+      tap(e => {
         e.preventDefault();
-        appWrapperRef.current.style.opacity = 1;
-        console.log(e.dataTransfer.files[0].name);
+        appWrapperRef.current!.style.opacity = '1';
+        // console.log(e.dataTransfer.files[0].name);
       }),
     ),
   );
@@ -176,9 +194,9 @@ export default () => {
   return (
     <ThemeProvider
       theme={{
-        active: themeContext.currentTheme,
-        fontFamily: VISBY_REGULAR,
-      }}>
+        active: themeStore.currentTheme,
+      }}
+    >
       <AppWrapper ref={appWrapperRef}>
         <GlobalStyle />
         <RxEditorContextMenu />

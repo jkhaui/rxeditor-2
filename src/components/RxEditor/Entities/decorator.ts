@@ -1,6 +1,6 @@
 import { entityStrategy } from './strategy';
-import Link from '../Entities/Link';
-import FootnotePointer from '../Entities/FootnotePointer';
+import Link from './Link';
+import FootnotePointer from './FootnotePointer';
 
 export const customDecorators = [
   {

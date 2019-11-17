@@ -4,7 +4,6 @@ import { BehaviorSubject, interval } from 'rxjs';
 import { tap, withLatestFrom } from 'rxjs/operators';
 import { convertFromRaw, EditorState } from 'draft-js';
 
-import { getCaretCoordinates } from '../core/layout';
 import { handleStream } from '../reducers';
 
 import { LOCAL_STORAGE_KEY } from '../utils/constants';
@@ -15,6 +14,7 @@ import {
 } from '../components/RxEditor/utils/constants';
 
 import { IAction, CaretState } from '../types/rxEditor';
+import { getCaretCoordinates } from '../utils/utils';
 
 // import { setTypingState } from '../components/RxEditor/utils/utils';
 // TODO: This is quite messy and must be properly cleaned up (UI state not

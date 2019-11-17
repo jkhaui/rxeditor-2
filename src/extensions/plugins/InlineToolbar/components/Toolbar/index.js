@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef, useContext } from 'react';
+import React, { useState, useEffect, useRef, /*useContext*/ } from 'react';
 import styled from 'styled-components';
 import { getVisibleSelectionRect } from 'draft-js';
 import { useObserver } from 'mobx-react-lite';
 
-import RxEditorContext from '../../../../../stores/RxEditorContext';
+//import RxEditorContext from '../../../../../stores/RxEditorContext';
 
 const StyledInlineToolbar = styled.div`
   padding-top: 8px;
@@ -19,10 +19,10 @@ const StyledInlineToolbar = styled.div`
 `;
 
 export default (props) => {
-  const editorStore = useContext(RxEditorContext);
-  const {
-    toggleInlineToolbarVisible,
-  } = editorStore;
+  //const editorStore = useContext(RxEditorContext);
+  //const {
+  //  toggleInlineToolbarVisible,
+  //} = editorStore;
   const [toolbarPosition, setToolbarPosition] = useState(undefined);
   const [content, setContent] = useState(undefined);
 
@@ -54,8 +54,8 @@ export default (props) => {
 
       // This keeps backwards compatibility with React 15
       let editorRoot = editorRef.refs && editorRef.refs.editor
-          ? editorRef.refs.editor
-          : editorRef.editor;
+        ? editorRef.refs.editor
+        : editorRef.editor;
       while (editorRoot.className.indexOf('DraftEditor-root') === -1) {
         editorRoot = editorRoot.parentNode;
       }
@@ -87,9 +87,7 @@ export default (props) => {
   };
 
   const getStyle = () => {
-    const selection = store
-      .getItem('getEditorState')()
-      .getSelection();
+    const selection = store.getItem('getEditorState')().getSelection();
     // overrideContent could for example contain a text input, hence we always
     // show overrideContent TODO: Test readonly mode and possibly set isVisible
     // to false if the editor is readonly
@@ -106,7 +104,7 @@ export default (props) => {
         style.transform = 'translate(-50%) scale(1)';
       } else {
         style.transform = 'translate(-50%) scale(0)';
-        style.visibility = 'visible';
+        style.visibility = 'hidden';
       }
     }
 

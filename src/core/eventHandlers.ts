@@ -1,41 +1,26 @@
 import React from 'react';
 import {
   ContentState,
-  convertFromRaw,
-  convertToRaw,
+  DraftInlineStyle,
   EditorState,
   getDefaultKeyBinding,
   KeyBindingUtil,
   Modifier,
-  RichUtils,
   SelectionState,
 } from 'draft-js';
-import { OrderedSet } from 'immutable';
 import { BehaviorSubject } from 'rxjs';
 
 import { editorStore } from '../stores/RxEditorStore';
 
-import { RxEditorActionPayload } from '../types/rxEditor';
-
-import { LOCAL_STORAGE_KEY } from '../utils/constants';
 import {
   BOLD_PAYLOAD,
-  COPY_PAYLOAD,
-  CUT_PAYLOAD,
   HANDLED,
-  HIGHLIGHT_PAYLOAD,
   INSERT_CHARACTERS_CHANGE_TYPE,
   INSERT_FRAGMENT_CHANGE_TYPE,
   ITALIC_PAYLOAD,
-  LOAD_PAYLOAD,
   NOT_HANDLED,
-  PRINT_PAYLOAD,
-  REDO_PAYLOAD,
-  SAVE_PAYLOAD,
-  STRIKETHROUGH_PAYLOAD,
   TAB_UNICODE,
   UNDERLINE_PAYLOAD,
-  UNDO_PAYLOAD,
 } from '../components/RxEditor/utils/constants';
 
 import { selectAllText } from '../components/RxEditor/utils/utils';
@@ -58,7 +43,7 @@ export const keyBindingFn = (
   const currentBlock = contentState.getBlockForKey(anchorKey);
   const currentBlockText = currentBlock.getText();
 
-  const { isCtrlKeyCommand } = KeyBindingUtil;
+  const { isCtrlKeyCommand, hasCommandModifier } = KeyBindingUtil;
   const { key } = e;
 
   if (key) {
@@ -246,7 +231,7 @@ export const keyBindingFn = (
       }
     }
 
-    if (isCtrlKeyCommand(e)) {
+    if (isCtrlKeyCommand(e) || hasCommandModifier(e)) {
       const {
         toggleNewDocModalState,
         toggleSavedDocsModalState,
@@ -320,7 +305,7 @@ export const rxTabHandler = (
   editorState: EditorState,
   editorState$: BehaviorSubject<EditorState>,
   e: React.KeyboardEvent,
-  inlineStyles: OrderedSet<any>,
+  inlineStyles: DraftInlineStyle,
   currentLineWidth: number,
 ) => {
   e.preventDefault();
@@ -349,79 +334,20 @@ export const rxTabHandler = (
       return handleLineBlock(editorState, editorState$);
     }
   } else {
-    const newContentState =
-      Modifier.replaceText(
-        contentState,
-        selectionState,
-        TAB_UNICODE,
-        inlineStyles,
-      );
-    newEditorState =
-      EditorState.push(
-        editorState,
-        newContentState,
-        INSERT_CHARACTERS_CHANGE_TYPE,
-      );
+    const newContentState = Modifier.replaceText(
+      contentState,
+      selectionState,
+      TAB_UNICODE,
+      inlineStyles,
+    );
+    newEditorState = EditorState.push(
+      editorState,
+      newContentState,
+      INSERT_CHARACTERS_CHANGE_TYPE,
+    );
   }
 
   editorState$.next(newEditorState);
-};
-
-/**
- * Communicates events between the core RxEditor and external components,
- * triggers or plugins.
- */
-export const handlePayload = (
-  editorState: EditorState,
-  editorState$: BehaviorSubject<any>,
-  payload: RxEditorActionPayload,
-): void => {
-  switch (payload) {
-    case BOLD_PAYLOAD:
-    case ITALIC_PAYLOAD:
-    case UNDERLINE_PAYLOAD:
-    case STRIKETHROUGH_PAYLOAD:
-    case HIGHLIGHT_PAYLOAD:
-      editorState$.next(RichUtils.toggleInlineStyle(editorState, payload));
-      return;
-    case CUT_PAYLOAD:
-      if (!editorState.getSelection().isCollapsed()) {
-        document.execCommand('cut', false, undefined);
-      }
-      return;
-    case COPY_PAYLOAD:
-      selectAllText(editorState, editorState$);
-      document.execCommand('copy', false, undefined);
-      return;
-    case SAVE_PAYLOAD:
-      localStorage.setItem(
-        LOCAL_STORAGE_KEY,
-        JSON.stringify(convertToRaw(editorState.getCurrentContent())),
-      );
-      return;
-    case LOAD_PAYLOAD:
-      editorState$.next(
-        EditorState.push(
-          editorState,
-          convertFromRaw(JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)!)),
-          INSERT_CHARACTERS_CHANGE_TYPE,
-        ),
-      );
-      return;
-    case PRINT_PAYLOAD:
-      window.print();
-      return;
-    case UNDO_PAYLOAD:
-      editorState$.next(
-        EditorState.undo(editorState),
-      );
-      return;
-    case REDO_PAYLOAD:
-      editorState$.next(
-        EditorState.redo(editorState),
-      );
-      return;
-  }
 };
 
 export const handleDrop = (
