@@ -5,7 +5,7 @@ _This repo is a mirror of the original repo which is currently private._
 
 _RxEditor is currently a WIP proof-of-concept._
 
-**Demo:** http://reactive-docs.s3-website-ap-southeast-2.amazonaws.com/
+**Demo:** http://rxeditor.s3-website-ap-southeast-1.amazonaws.com/
 
 RxEditor is an attempt at creating an open-source, web-based and lightweight
 alternative to word processors like Google Docs or Microsoft Word. It is
