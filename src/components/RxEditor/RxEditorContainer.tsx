@@ -23,9 +23,9 @@ import {
   UNSTYLED_BLOCK_TYPE,
 } from './utils/constants';
 
-import FootnoteContext from '../../stores/FootnoteContext';
-import ComponentsContext from '../../stores/ComponentsContext';
-import RxEditorContext from '../../stores/RxEditorContext';
+import FootnoteContext from '../../contexts/FootnoteContext';
+import ComponentsContext from '../../contexts/ComponentsContext';
+import RxEditorContext from '../../contexts/RxEditorContext';
 
 import { handleBeforeInput } from '../../core/handleBeforeInput';
 import {

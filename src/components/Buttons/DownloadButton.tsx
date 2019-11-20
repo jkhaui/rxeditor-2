@@ -3,7 +3,7 @@ import React, { Fragment, useContext } from 'react';
 import { Tooltip, Modal } from 'antd';
 // import download from 'downloadjs';
 
-import RxEditorContext from '../../stores/RxEditorContext';
+import RxEditorContext from '../../contexts/RxEditorContext';
 
 import { StyledThemedButton, StyledImage } from '../common/StyledComponents';
 

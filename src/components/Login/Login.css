@@ -1,0 +1,82 @@
+.login-form-forgot {
+  float: right;
+}
+
+.kep-login-facebook {
+  font-family: 'VisbyCF-Bold', sans-serif !important;
+  text-transform: none !important;
+  width: 100% !important;
+  box-shadow: none !important;
+  border-radius: 2px;
+}
+
+.ant-collapse-header {
+  font-family: 'VisbyCF-Bold', sans-serif !important;
+  min-height: 58.88px !important;
+  padding: 18px !important;
+  padding-left: 20% !important;
+  color: rgba(0, 0, 0, 0.45) !important;
+  font-weight: 700 !important;
+  font-size: calc(.27548vw + 12.71074px) !important;
+}
+
+.Auth-Panel {
+  min-height: 58.88px !important;
+  border-radius: 2px !important;
+  font-family: 'VisbyCF-Bold', sans-serif !important;
+}
+
+.Auth-collapsePanel {
+  min-height: 58.88px !important;
+}
+
+.Auth-usernameField {
+  height: 50px;
+  font-size: 20px;
+  border-radius: 2px !important;
+}
+
+.Auth-passwordField {
+  height: 50px;
+  font-size: 20px;
+  border-radius: 2px !important;
+}
+
+.Auth-rowMeta {
+  font-family: 'VisbyCF-Regular', sans-serif !important;
+  margin-bottom: 0 !important;
+}
+
+.ant-checkbox-inner {
+  border-color: #2EC4B6 !important;
+  background-color: #2EC4B6 !important;
+}
+
+.ant-input:hover {
+  border-color: #2EC4B6 !important;
+}
+
+.ant-input-affix-wrapper:hover .ant-input:not(.ant-input-disabled) {
+  border-color: #2EC4B6 !important;
+}
+
+.ant-input {
+  font-family: 'VisbyCF-Regular', sans-serif !important;
+  border-radius: 2px !important;
+}
+
+.ant-tabs-nav {
+  font-family: 'VisbyCF-Bold', sans-serif !important;
+}
+
+.ant-tabs-tab:hover {
+  color: #2EC4B6 !important;
+}
+
+.ant-tabs-tab-active {
+  color: #2EC4B6 !important;
+}
+
+.ant-tabs-ink-bar {
+  background-color: #2EC4B6 !important;
+}

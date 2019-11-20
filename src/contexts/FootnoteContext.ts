@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { footnoteStore } from './FootnoteStore';
+import { footnoteStore } from '../stores/FootnoteStore';
 
 const FootnoteContext = createContext(footnoteStore);
 

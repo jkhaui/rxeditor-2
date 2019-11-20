@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Button, Tooltip } from 'antd';
 import { BlockPicker } from 'react-color';
 
-import RxEditorContext from '../../stores/RxEditorContext';
+import RxEditorContext from '../../contexts/RxEditorContext';
 import {
   StyledImage,
   StyledContainer,
@@ -50,9 +50,7 @@ export const ColorButton = ({ command, shortcut, icon }: IProps) => {
     >
       <StyledPopover
         content={
-          <StyledContainer
-            onContextMenu={e => e.preventDefault()}
-          >
+          <StyledContainer onContextMenu={e => e.preventDefault()}>
             <BlockPicker
               triangle={'hide'}
               color={highlightColor}

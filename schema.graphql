@@ -1,0 +1,21 @@
+type Query {
+}
+
+type LoginPayload {
+  username: String
+  password: String
+  clientMutationId: String
+}
+
+type UserID {
+  id: String
+}
+
+type User {
+  authToken: String
+  user: UserID
+}
+
+type Mutation {
+  login(input: LoginPayload): LoginPayload
+}

@@ -5,7 +5,7 @@ import { useObserver } from 'mobx-react-lite';
 
 //import RxEditorContext from '../../../../../stores/RxEditorContext';
 
-const StyledInlineToolbar = styled.div`
+const StyledInlineToolbar = styled.div<any>`
   visibility: hidden;
   top: 0;
   left: 0;
@@ -21,21 +21,32 @@ const StyledInlineToolbar = styled.div`
   background-color: #FFF;
 `;
 
-export default (props) => {
+interface IProps {
+  children?: any;
+  store?: any;
+}
+
+export default (props: IProps) => {
   //const editorStore = useContext(RxEditorContext);
   //const {
   //  toggleInlineToolbarVisible,
   //} = editorStore;
-  const [toolbarPosition, setToolbarPosition] = useState(undefined);
-  const [content, setContent] = useState(undefined);
+  const [toolbarPosition, setToolbarPosition] = useState(
+    {
+      position: {
+        top: 0,
+        left: 0,
+      },
+    });
+  const [content, setContent] = useState();
 
-  const toolbarRef = useRef(null);
+  const toolbarRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => store.subscribeToItem('selection', onSelectionChanged), []);
 
   const { store } = props;
 
-  const onOverrideContent = overrideContent => {
+  const onOverrideContent = (overrideContent: any) => {
     setContent({ overrideContent });
   };
 
@@ -74,18 +85,20 @@ export default (props) => {
       // the text.
       const extraTopOffset = -12;
 
-      const position = {
-        top:
-          editorRoot.offsetTop
-          - toolbarRef.current.offsetHeight
-          + (selectionRect.top - editorRootRect.top)
-          + extraTopOffset,
-        left:
-          editorRoot.offsetLeft
-          + (selectionRect.left - editorRootRect.left)
-          + selectionRect.width / 2,
-      };
-      setToolbarPosition({ position });
+      if (toolbarRef.current) {
+        const position = {
+          top:
+            editorRoot.offsetTop
+            - toolbarRef.current!.offsetHeight
+            + (selectionRect.top - editorRootRect.top)
+            + extraTopOffset,
+          left:
+            editorRoot.offsetLeft
+            + (selectionRect.left - editorRootRect.left)
+            + selectionRect.width / 2,
+        };
+        setToolbarPosition({ position });
+      }
     });
   };
 
@@ -96,7 +109,13 @@ export default (props) => {
     // to false if the editor is readonly
     const isVisible =
       (!selection.isCollapsed() && selection.getHasFocus()) || content;
-    const style = { ...toolbarPosition };
+    const style = {
+      left: 0,
+      top: 0,
+      visibility: 'hidden',
+      transform: '',
+      ...toolbarPosition,
+    };
 
     if (style.position) {
       const { left, top } = style.position;
@@ -127,11 +146,12 @@ export default (props) => {
       style={getStyle()}
       ref={toolbarRef}
     >
-      {content ? (
-        <OverrideContent {...childrenProps} />
-      ) : (
-        props.children(childrenProps)
-      )}
+      {content
+        ? (
+          <OverrideContent {...childrenProps} />
+        ) : (
+          props.children(childrenProps)
+        )}
     </StyledInlineToolbar>,
   );
 };

@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { useObserver } from 'mobx-react-lite';
 import { Modal, Input, Button } from 'antd';
 import styled from 'styled-components';
-import RxEditorContext from '../../../stores/RxEditorContext';
+import RxEditorContext from '../../../contexts/RxEditorContext';
 
 const StyledModalWrapper = styled.div`
   font-family: 'VisbyCF-Regular', sans-serif;

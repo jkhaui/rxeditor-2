@@ -15,7 +15,7 @@ import menu_more from '../../assets/icons/menu-more.svg';
 import superscript from '../../assets/icons/superscript.svg';
 // import footnote_list from '../../assets/icons/footnote-list.svg';
 
-import RxEditorContext from '../../stores/RxEditorContext';
+import RxEditorContext from '../../contexts/RxEditorContext';
 import NewDocModal from '../Modals/NewDocModal/NewDocModal';
 import UserDocsModal from '../Modals/UserDocsModal/UserDocsModal';
 import TitleInput from './TitleInput';

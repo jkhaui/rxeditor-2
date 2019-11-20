@@ -20,7 +20,7 @@ import superscript
   from '../../assets/icons/superscript.svg';
 import link from '../../assets/icons/link.svg';
 
-import RxEditorContext from '../../stores/RxEditorContext';
+import RxEditorContext from '../../contexts/RxEditorContext';
 import { StyledImage } from '../common/StyledComponents';
 import {
   copyToClipboard,
@@ -28,7 +28,7 @@ import {
   selectAllText,
 } from '../RxEditor/utils/utils';
 import { createEntity } from '../../actions';
-import FootnoteContext from '../../stores/FootnoteContext';
+import FootnoteContext from '../../contexts/FootnoteContext';
 
 const { Item } = Menu;
 

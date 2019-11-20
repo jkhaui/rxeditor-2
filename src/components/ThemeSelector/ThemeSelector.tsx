@@ -2,8 +2,8 @@ import React, { useContext } from 'react';
 import { Select, Tooltip } from 'antd';
 import styled from 'styled-components';
 
-import RxEditorContext from '../../stores/RxEditorContext';
-import ThemeContext from '../../stores/ThemeContext';
+import RxEditorContext from '../../contexts/RxEditorContext';
+import ThemeContext from '../../contexts/ThemeContext';
 import {
   CABO_LIGHT_THEME,
   CHELEVRA_THEME,

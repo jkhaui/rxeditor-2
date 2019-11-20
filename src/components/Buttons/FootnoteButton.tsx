@@ -3,9 +3,9 @@ import { Tooltip } from 'antd';
 import { useObserver } from 'mobx-react-lite';
 
 import { createEntity } from '../../actions';
-import RxEditorContext from '../../stores/RxEditorContext';
+import RxEditorContext from '../../contexts/RxEditorContext';
 import { StyledThemedButton, StyledImage } from '../common/StyledComponents';
-import FootnoteContext from '../../stores/FootnoteContext';
+import FootnoteContext from '../../contexts/FootnoteContext';
 import { CREATE_FOOTNOTE_POINTER_ACTION } from '../RxEditor/utils/constants';
 
 export const FootnoteButton = ({ shortcut, icon }: any) => {

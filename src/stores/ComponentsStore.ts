@@ -9,6 +9,10 @@ class ComponentsStore {
   @action toggleRightDrawerVisible = () =>
     this.rightDrawerVisible = !this.rightDrawerVisible;
 
+  @observable accountMenuVisible = false;
+  @action toggleAccountMenuVisible = () =>
+    this.accountMenuVisible = !this.accountMenuVisible;
+
   @observable keyboardShortcutsVisible = false;
   @action toggleKeyboardShortcutsVisible = () =>
     this.keyboardShortcutsVisible = !this.keyboardShortcutsVisible;

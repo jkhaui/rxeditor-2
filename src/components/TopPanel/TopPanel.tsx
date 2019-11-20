@@ -1,12 +1,13 @@
 import React, { Fragment, useContext } from 'react';
+import { Row, Col, Tooltip, Drawer } from 'antd';
+import { useObserver } from 'mobx-react-lite';
 import styled from 'styled-components';
-import { Row, Col, Tooltip, Drawer, Divider } from 'antd';
 
 import undo from '../../assets/icons/undo.svg';
 import redo from '../../assets/icons/redo.svg';
-import keyboard from '../../assets/icons/keyboard.svg';
 import gear from '../../assets/icons/gear.svg';
 
+import { StyledBoldText, StyledContainer } from '../common/StyledComponents';
 import { UndoRedoButton } from '../Buttons/UndoRedoButton';
 import {
   REDO_PAYLOAD,
@@ -15,35 +16,35 @@ import {
   UNDO_SHORTCUT,
 } from '../RxEditor/utils/constants';
 
-import { StyledPopover } from '../common/StyledComponents';
-import RxEditorContext from '../../stores/RxEditorContext';
+import RxEditorContext from '../../contexts/RxEditorContext';
+import KeyboardShortcutsPopover from '../Popovers/KeyboardShortcutsPopover';
+import UserAccountPopover from '../Popovers/UserAccountPopover';
 import RightDrawer from '../RightDrawer/RightDrawer';
-import ComponentsContext from '../../stores/ComponentsContext';
-import { useObserver } from 'mobx-react-lite';
+import ComponentsContext from '../../contexts/ComponentsContext';
+import { StyledHeading, StyledIcon } from '../common/StyledComponents';
+import AuthenticationContext from '../../contexts/AuthenticationContext';
 
-const StyledIcon = styled.img`
+const StyledDemoHeading = styled(StyledBoldText)`
   cursor: pointer;
+  color: #2EC4B6;
+  transition: 0.5s;
+  
+    &:hover {
+      opacity: 0.7;
+    }
 `;
 
-const StyledHeading = styled.div`
-  font-family: 'VisbyCF-Bold', sans-serif;
-  font-size: 20px;
-`;
-
-const StyledText = styled.span`
-  font-size: 18px;
-`;
-
-const StyledBoldText = styled(StyledText)`
-    font-family: 'VisbyCF-Bold', sans-serif;
-`;
-
-const StyledRegularText = styled(StyledText)`
-  font-family: 'VisbyCF-Regular', sans-serif;
+const StyledDemoHeadingContainer = styled(StyledContainer)`
+    user-select: none;
+    font-family: 'VisbyCF-Bold',sans-serif !important;
+    padding: 6px 6px 6px 9px;
+    border: 2px solid #2EC4B6;
+    border-radius: 2px;
 `;
 
 export default () => {
   const componentsStore = useContext(ComponentsContext);
+  const authContext = useContext(AuthenticationContext);
   const editorStore = useContext(RxEditorContext);
   const {
     toggleRightDrawerVisible,
@@ -55,14 +56,19 @@ export default () => {
     unlockEditor,
   } = editorStore;
 
-  const handleVisibleChange = () => {
+  // Visibility handlers for popover components.
+  const handleKeyboardShortcutsVisibility = () => {
     toggleKeyboardShortcutsVisible();
     readOnlyState.locked ? unlockEditor() : lockEditor();
   };
 
   return useObserver(() =>
     <Row className={'TopPanel'}>
-      <Col span={19} />
+      {
+        !authContext.guestMode
+          ? <Col span={18} />
+          : <Col span={17} />
+      }
       <Col
         span={2}
         style={{
@@ -86,57 +92,10 @@ export default () => {
           minWidth: 50,
         }}
       >
-        <Tooltip
-          title={'Keyboard shortcuts (Ctrl + K)'}
-          placement={'left'}
-        >
-          <StyledPopover
-            placement={'bottomRight'}
-            content={
-              <Fragment>
-                <StyledHeading>
-                  Keyboard shortcuts (Ctrl + K)
-                </StyledHeading>
-                <br />
-                <Divider />
-                <StyledRegularText>
-                  Show preferences: <StyledBoldText>Ctrl + Shift +
-                  P</StyledBoldText>
-                </StyledRegularText>
-                <br />
-                <Divider />
-                <StyledRegularText>
-                  Add full-stop followed by footnote: <StyledBoldText>Ctrl +
-                  .</StyledBoldText>
-                </StyledRegularText>
-                <br />
-                <Divider />
-                <StyledRegularText>
-                  Add footnote: <StyledBoldText>Ctrl + /</StyledBoldText>
-                </StyledRegularText>
-                <br />
-                <Divider />
-                <StyledRegularText>
-                  New Document: <StyledBoldText>Ctrl + D</StyledBoldText>
-                </StyledRegularText>
-                <br />
-                <Divider />
-                <StyledRegularText>
-                  Open Documents <StyledBoldText>Ctrl + O</StyledBoldText>
-                </StyledRegularText>
-              </Fragment>
-            }
-            visible={componentsStore.keyboardShortcutsVisible}
-            onVisibleChange={handleVisibleChange}
-            trigger="click"
-          >
-            <StyledIcon
-              src={keyboard}
-              width={42}
-              height={'auto'}
-            />
-          </StyledPopover>
-        </Tooltip>
+        <KeyboardShortcutsPopover
+          componentsStore={componentsStore}
+          handleKeyboardShortcutsVisibility={handleKeyboardShortcutsVisibility}
+        />
       </Col>
       <Col
         span={1}
@@ -144,9 +103,7 @@ export default () => {
           minWidth: 50,
         }}
       >
-        <Tooltip
-          title={'Preferences'}
-        >
+        <Tooltip title={'Preferences'} placement={'left'}>
           <StyledIcon
             src={gear}
             width={42}
@@ -155,7 +112,32 @@ export default () => {
           />
         </Tooltip>
       </Col>
-      <Col span={1} />
+      {
+        !authContext.guestMode
+          ? <Fragment>
+            <Col span={1}>
+              <Tooltip title={'Your account'}>
+                <UserAccountPopover
+                  componentsStore={componentsStore}
+                  authContext={authContext}
+                />
+              </Tooltip>
+            </Col>
+            <Col span={1} />
+          </Fragment>
+          : <Fragment>
+            <Col span={2}>
+              <StyledDemoHeadingContainer
+                onClick={() => authContext.setGuestMode(false)}
+              >
+                <StyledDemoHeading>
+                  Exit demo
+                </StyledDemoHeading>
+              </StyledDemoHeadingContainer>
+            </Col>
+            <Col span={1} />
+          </Fragment>
+      }
       <Drawer
         title={<StyledHeading>Preferences</StyledHeading>}
         placement={'right'}

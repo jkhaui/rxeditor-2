@@ -3,7 +3,7 @@ import { Tooltip, Button } from 'antd';
 
 import { SMALL_CAPS_PAYLOAD } from '../RxEditor/utils/constants';
 
-import RxEditorContext from '../../stores/RxEditorContext';
+import RxEditorContext from '../../contexts/RxEditorContext';
 import { StyledImage } from '../common/StyledComponents';
 import { toggleInlineStyle } from '../../actions';
 

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Button, Tooltip } from 'antd';
 
-import RxEditorContext from '../../stores/RxEditorContext';
+import RxEditorContext from '../../contexts/RxEditorContext';
 
 import { StyledImage } from '../common/StyledComponents';
 import { undoRedo } from '../../actions';
@@ -22,7 +22,9 @@ export const UndoRedoButton = ({ command, icon, shortcut }: IProps) => {
     <Tooltip
       title={
         command.charAt(0) + command.substr(1).toLowerCase() + ` (${shortcut})`
-      }>
+      }
+      placement={'left'}
+    >
       <Button
         ghost
         type="link"

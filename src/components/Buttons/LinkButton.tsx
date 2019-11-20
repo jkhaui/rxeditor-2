@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Tooltip } from 'antd';
 
-import RxEditorContext from '../../stores/RxEditorContext';
+import RxEditorContext from '../../contexts/RxEditorContext';
 import { StyledThemedButton, StyledImage } from '../common/StyledComponents';
 import { createEntity } from '../../actions';
 import { CREATE_LINK_ACTION } from '../RxEditor/utils/constants';

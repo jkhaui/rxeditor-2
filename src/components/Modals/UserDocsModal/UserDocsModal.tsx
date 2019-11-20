@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 import UserDocsList from './UserDocsList';
 
-import RxEditorContext from '../../../stores/RxEditorContext';
+import RxEditorContext from '../../../contexts/RxEditorContext';
 
 const StyledModalWrapper = styled.div`
   font-family: 'VisbyCF-Regular', sans-serif;

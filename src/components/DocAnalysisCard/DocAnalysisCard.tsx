@@ -9,7 +9,7 @@ import WordCountModal from '../Modals/DocAnalysisModal/DocAnalysisModal';
 import {
   StyledVisbyRegular,
 } from '../common/StyledComponents';
-import RxEditorContext from '../../stores/RxEditorContext';
+import RxEditorContext from '../../contexts/RxEditorContext';
 import { getWordCount } from '../RxEditor/utils/utils';
 
 const StyledWordCount = styled.div`

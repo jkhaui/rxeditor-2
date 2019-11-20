@@ -29,8 +29,7 @@ export default forwardRef((props: IRxEditorProps, ref: React.Ref<{}>) => {
       <Editor
         ref={ref}
         editorState={editorState}
-        onChange={(editorState: EditorState): void =>
-          editorState$.next(editorState)}
+        onChange={(editorState: EditorState) => editorState$.next(editorState)}
         keyBindingFn={keyBindingFn(
           editorState,
           editorState$,

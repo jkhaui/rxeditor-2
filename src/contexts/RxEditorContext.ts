@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { editorStore } from './RxEditorStore';
+import { editorStore } from '../stores/RxEditorStore';
 
 const RxEditorContext = createContext(editorStore);
 

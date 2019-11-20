@@ -2,3 +2,4 @@
 declare module 'draft-js-plugins-editor';
 declare module 'draftjs-utils';
 declare module 'draft-js-linkify-plugin';
+declare module 'react-facebook-login';
