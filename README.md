@@ -25,6 +25,16 @@ Heads up: code/type definitions/UI are a little sloppy in places as the focus
 has been on experimenting with the core logic. Refactoring of the
  presentational layer is needed, especially the button components. Context
   logic can probably be refactored into a single hook.
+  
+Also note that Facebook oAuth login doesn't work in the demo, it's just for
+ show. To test out the editor, either click "try without without an account", or
+use the credentials below:
+
+username: guest
+password: guest 
+
+This will authenticate your browser using a JWT, transferred over the wire
+ from a GraphQL server.
  
 Setup the repo locally:
 
