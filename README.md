@@ -2,10 +2,11 @@
 
 ## [WIP]
 _This repo is a mirror of the original repo which is currently private._
-
 _RxEditor is currently a WIP proof-of-concept._
 
 **Demo:** http://rxeditor.s3-website-ap-southeast-1.amazonaws.com/
+
+   **Most features are currently not implemented; the main purpose of this demo currently is to provide a solution to questions like these (https://stackoverflow.com/questions/39122713/how-to-divide-the-text-into-separate-pages-like-google-docs-in-contenteditable) and show how pagination can be achieved in a web-based word processor. Try it out by typing stuff or pressing Enter until a page break is triggered.**
 
 RxEditor is an attempt at creating an open-source, web-based and lightweight
 alternative to word processors like Google Docs or Microsoft Word. It is
@@ -17,9 +18,6 @@ alternative to word processors like Google Docs or Microsoft Word. It is
 The data-flow looks like this:
 User input -> Events piped through RxJS middleware -> MobX store holding
  editor state is updated -> MobX reactively triggers re-rendering of the editor.
- 
-At the moment, the main feature to try out is pagination (press enter or type
- something until a page break is triggered.)
  
 Heads up: code/type definitions/UI are a little sloppy in places as the focus
 has been on experimenting with the core logic. Refactoring of the
