@@ -36,7 +36,7 @@
     "react-hotkeys": "^2.0.0",
     "react-measure": "^2.3.0",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "^3.2.0",
+    "react-scripts": "^5.0.1",
     "react-scrollbars-custom": "^4.0.21",
     "rxjs": "^6.5.3",
     "styled-components": "^4.4.1",
